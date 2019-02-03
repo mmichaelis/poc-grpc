@@ -1,0 +1,31 @@
+syntax = "proto3";
+option java_multiple_files = true;
+package com.github.mmichaelis.grpc.server;
+
+// A nice person
+message Person {
+    // Reserve numbers from previous versions.
+    reserved 13, 42 to 52;
+    uint64 id = 1;
+    string first_name = 2;
+    string last_name = 3;
+    Gender gender = 4;
+
+    // Some gender.
+    enum Gender {
+        MALE = 0;
+        FEMALE = 1;
+        OTHER = 2;
+    }
+}
+message HelloRequest {
+    Person person = 1;
+}
+
+message HelloResponse {
+    string greeting = 1;
+}
+
+service HelloService {
+    rpc hello (HelloRequest) returns (HelloResponse);
+}

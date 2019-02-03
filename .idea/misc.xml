@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ExternalStorageConfigurationManager" enabled="true" />
+  <component name="IssueNavigationConfiguration">
+    <option name="links">
+      <list>
+        <IssueNavigationLink>
+          <option name="issueRegexp" value="(CMS-\d+)" />
+          <option name="linkRegexp" value="https://jira.coremedia.com/browse/$1" />
+        </IssueNavigationLink>
+      </list>
+    </option>
+  </component>
+  <component name="Kotlin2JsCompilerArguments">
+    <option name="sourceMapEmbedSources" />
+  </component>
+  <component name="MavenProjectsManager">
+    <option name="originalFiles">
+      <list>
+        <option value="$PROJECT_DIR$/pom.xml" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectInspectionProfilesVisibleTreeState">
+    <entry key="Project Default">
+      <profile-state>
+        <expanded-state>
+          <State />
+          <State>
+            <id>Abstraction issuesJava</id>
+          </State>
+          <State>
+            <id>Java</id>
+          </State>
+          <State>
+            <id>SecurityJava</id>
+          </State>
+          <State>
+            <id>Serialization issuesJava</id>
+          </State>
+        </expanded-state>
+      </profile-state>
+    </entry>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="11" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/out" />
+  </component>
+  <component name="ValidationConfiguration">
+    <option name="VALIDATORS">
+      <map>
+        <entry key="EJB Validator" value="true" />
+        <entry key="Faces Validator" value="false" />
+        <entry key="FreeMarker" value="true" />
+        <entry key="Hibernate Validator" value="true" />
+        <entry key="JPA Validator" value="true" />
+        <entry key="Jasper Validator" value="false" />
+        <entry key="Spring Model Validator" value="true" />
+        <entry key="Spring Web Flow" value="true" />
+        <entry key="Web Xml Validator" value="true" />
+      </map>
+    </option>
+  </component>
+</project>
