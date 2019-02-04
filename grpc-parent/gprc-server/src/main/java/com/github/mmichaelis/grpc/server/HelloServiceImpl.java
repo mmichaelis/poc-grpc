@@ -32,8 +32,7 @@ public class HelloServiceImpl extends HelloServiceGrpc.HelloServiceImplBase {
     }
     builder.append(person.getFirstName())
             .append(" ")
-            .append(person.getLastName())
-            .toString();
+            .append(person.getLastName());
 
     HelloResponse response = HelloResponse.newBuilder()
             .setGreeting(builder.toString())
