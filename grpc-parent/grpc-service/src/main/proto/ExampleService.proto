@@ -1,8 +1,8 @@
 syntax = "proto3";
 option java_multiple_files = true;
-option java_package = "com.github.mmichaelis.grpc.server";
+option java_package = "com.github.mmichaelis.grpc.service";
 
-package grpc.server;
+package grpc.service;
 
 // A nice person
 message Person {

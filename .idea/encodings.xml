@@ -4,6 +4,6 @@
     <file url="file://$PROJECT_DIR$" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/grpc-parent" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/grpc-parent/grpc-client" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/grpc-parent/grpc-server" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/grpc-parent/grpc-service" charset="UTF-8" />
   </component>
 </project>

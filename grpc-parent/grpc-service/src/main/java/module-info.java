@@ -1,4 +1,4 @@
-module grpc.server {
+module grpc.service {
   requires com.google.common;
   requires java.annotation;
   requires java.compiler;

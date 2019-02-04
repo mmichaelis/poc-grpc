@@ -14,7 +14,7 @@
   <packaging>pom</packaging>
   <modules>
     <module>grpc-client</module>
-    <module>grpc-server</module>
+    <module>grpc-service</module>
   </modules>
 
   <properties>
