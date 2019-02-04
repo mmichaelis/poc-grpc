@@ -2,16 +2,8 @@
 
 - - -
 
-🚧 **Dead End:** This PoC is at a dead end. Trying to implement the example
-provided by [Baeldung][baeldung.grpc] with some extensions, the project
-also tried to use Java Modules and use Java 11.
-
-Unfortunately JPMS is not supported up to now. To track the issue, have a
-look at grpc/grpc-java#3522.
-
-So, the problem is using JPMS &mdash; not Java 11+, although other issues existed
-(regarding the `Generated` annotation) which were related to Java 11+ but a
-workaround could be applied.
+🚧 **JPMS disabled:** Because of [grpc/grpc-java#3522][] JPMS had to be disabled
+by renaming `module-info.java` to `module-info.java.disabled`.
 
 - - -
 
@@ -73,3 +65,5 @@ for Java 11 is to add the following dependency (for example as provided scope):
 [grpc.io]: <https://grpc.io/> "grpc / grpc.io"
 [jetbrains.plugins.protobuf]: <https://plugins.jetbrains.com/plugin/8277-protobuf-support> "Protobuf Support - Plugins | JetBrains"
 [maven.plugin.protobuf]: <https://www.xolstice.org/protobuf-maven-plugin/> "Maven Protocol Buffers Plugin – Introduction"
+
+[grpc/grpc-java#3522]: <https://github.com/grpc/grpc-java/issues/3522> "gRPC Java is not usable from Java 9 modules · Issue #3522 · grpc/grpc-java"
