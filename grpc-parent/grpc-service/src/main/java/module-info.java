@@ -6,4 +6,6 @@ module grpc.service {
   requires grpc.protobuf;
   requires grpc.stub;
   requires protobuf.java;
+
+  exports com.github.mmichaelis.grpc.service;
 }
