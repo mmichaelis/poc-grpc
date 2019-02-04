@@ -1,5 +1,20 @@
 # gRPC Proof-of-Concept
 
+- - -
+
+🚧 **Dead End:** This PoC is at a dead end. Trying to implement the example
+provided by [Baeldung][baeldung.grpc] with some extensions, the project
+also tried to use Java Modules and use Java 11.
+
+Unfortunately JPMS is not supported up to now. To track the issue, have a
+look at grpc/grpc-java#3522.
+
+So, the problem is using JPMS &mdash; not Java 11+, although other issues existed
+(regarding the `Generated` annotation) which were related to Java 11+ but a
+workaround could be applied.
+
+- - -
+
 This is a proof-of-concept for using gRPC. In addition to that, the project
 is based on Java 11 and uses its module system.
 
