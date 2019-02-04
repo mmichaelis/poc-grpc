@@ -13,7 +13,12 @@ in order to get support editing `.proto` files.
 
 ## Notes
 
-* Snake-case field names will be transformed to camel-case.
+* **Field Names:** Snake-case field names will be transformed to camel-case.
+
+* **JavaDoc:** Any comments will be added as is (escaped) into a `<pre>` block.
+    To change this is marked as TODO:
+
+    https://github.com/grpc/grpc-java/blob/71d067e8f5ccecedd17a38f5b01a77e56841836a/compiler/src/java_plugin/cpp/java_generator.cpp#L291
 
 ## Troubleshooting
 

@@ -12,6 +12,12 @@ message Person {
     string first_name = 2;
     string last_name = 3;
     Gender gender = 4;
+    /*
+     * Some
+     * multiline
+     * documentation.
+     */
+    string deprecated_field = 5;
 
     // Some gender.
     enum Gender {
