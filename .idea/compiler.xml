@@ -9,6 +9,7 @@
         <module name="gprc-server" />
         <module name="grpc-client" />
         <module name="grpc-service" />
+        <module name="grpc-test" />
       </profile>
     </annotationProcessing>
   </component>

@@ -16,6 +16,7 @@
     <module>grpc-client</module>
     <module>grpc-service</module>
     <module>gprc-server</module>
+    <module>grpc-test</module>
   </modules>
 
   <properties>
