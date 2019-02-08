@@ -7,15 +7,46 @@ import com.github.mmichaelis.grpc.service.Person;
 import edu.umd.cs.findbugs.annotations.DefaultAnnotation;
 import edu.umd.cs.findbugs.annotations.NonNull;
 import io.grpc.stub.StreamObserver;
+import org.slf4j.Logger;
 
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.time.temporal.ChronoUnit;
 
+import static java.lang.invoke.MethodHandles.lookup;
+import static org.slf4j.LoggerFactory.getLogger;
+
 @DefaultAnnotation(NonNull.class)
 public class HelloServiceImpl extends HelloServiceGrpc.HelloServiceImplBase {
+  private static final Logger LOG = getLogger(lookup().lookupClass());
+
   @Override
   public void hello(HelloRequest request, StreamObserver<HelloResponse> responseObserver) {
+    responseObserver.onNext(createResponse(request));
+    responseObserver.onCompleted();
+  }
+
+  @Override
+  public StreamObserver<HelloRequest> helloStream(StreamObserver<HelloResponse> responseObserver) {
+    return new StreamObserver<>() {
+      @Override
+      public void onNext(HelloRequest helloRequest) {
+        responseObserver.onNext(createResponse(helloRequest));
+      }
+
+      @Override
+      public void onError(Throwable throwable) {
+        LOG.error("Failure.", throwable);
+      }
+
+      @Override
+      public void onCompleted() {
+        responseObserver.onCompleted();
+      }
+    };
+  }
+
+  private static HelloResponse createResponse(HelloRequest request) {
     StringBuilder builder = new StringBuilder();
     Person person = request.getPerson();
 
@@ -47,11 +78,8 @@ public class HelloServiceImpl extends HelloServiceGrpc.HelloServiceImplBase {
             .append(person.getLastName())
             .append("!");
 
-    HelloResponse response = HelloResponse.newBuilder()
+    return HelloResponse.newBuilder()
             .setGreeting(builder.toString())
             .build();
-
-    responseObserver.onNext(response);
-    responseObserver.onCompleted();
   }
 }
