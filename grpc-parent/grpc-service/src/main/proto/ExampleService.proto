@@ -4,10 +4,11 @@ option java_package = "com.github.mmichaelis.grpc.service";
 
 package grpc.service;
 
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/any.proto";
+
 // A nice person
 message Person {
-    // Reserve numbers from previous versions.
-    reserved 13, 42 to 52;
     uint64 id = 1;
     string first_name = 2;
     string last_name = 3;
@@ -18,6 +19,11 @@ message Person {
      * documentation.
      */
     string deprecated_field = 5;
+    google.protobuf.Timestamp birthday = 6;
+    google.protobuf.Any any = 7;
+
+    reserved 13; // must not be used anymore
+    reserved 42 to 52; // must not be used anymore
 
     // Some gender.
     enum Gender {
@@ -25,6 +31,7 @@ message Person {
         FEMALE = 1;
         OTHER = 2;
     }
+
 }
 message HelloRequest {
     Person person = 1;

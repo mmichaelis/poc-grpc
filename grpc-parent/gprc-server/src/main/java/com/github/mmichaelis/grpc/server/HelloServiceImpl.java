@@ -8,6 +8,10 @@ import edu.umd.cs.findbugs.annotations.DefaultAnnotation;
 import edu.umd.cs.findbugs.annotations.NonNull;
 import io.grpc.stub.StreamObserver;
 
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+import java.time.temporal.ChronoUnit;
+
 @DefaultAnnotation(NonNull.class)
 public class HelloServiceImpl extends HelloServiceGrpc.HelloServiceImplBase {
   @Override
@@ -15,7 +19,15 @@ public class HelloServiceImpl extends HelloServiceGrpc.HelloServiceImplBase {
     StringBuilder builder = new StringBuilder();
     Person person = request.getPerson();
 
-    builder.append("Hello, ");
+    long birthdayEpochSecondsUtc = person.getBirthday().getSeconds();
+    LocalDateTime birthdayDateTime = LocalDateTime.ofEpochSecond(birthdayEpochSecondsUtc, 0, ZoneOffset.UTC);
+    LocalDateTime now = LocalDateTime.now(ZoneOffset.UTC);
+    if (ChronoUnit.DAYS.between(birthdayDateTime, now) == 0L) {
+      builder.append("Happy Birthday, ");
+    } else {
+      builder.append("Hello, ");
+    }
+
     switch (person.getGender()) {
       case MALE:
         builder.append("Mr. ");
@@ -32,7 +44,8 @@ public class HelloServiceImpl extends HelloServiceGrpc.HelloServiceImplBase {
     }
     builder.append(person.getFirstName())
             .append(" ")
-            .append(person.getLastName());
+            .append(person.getLastName())
+            .append("!");
 
     HelloResponse response = HelloResponse.newBuilder()
             .setGreeting(builder.toString())

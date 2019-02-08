@@ -8,6 +8,7 @@ import com.github.mmichaelis.grpc.test.CleanupTimeout;
 import com.github.mmichaelis.grpc.test.GrpcTestExtension;
 import com.github.mmichaelis.grpc.test.ManagedChannelCleanupRegistry;
 import com.github.mmichaelis.grpc.test.ServerCleanupRegistry;
+import com.google.protobuf.Timestamp;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
 import io.grpc.Server;
@@ -17,6 +18,9 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.ZoneOffset;
 import java.util.concurrent.TimeUnit;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -25,7 +29,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @CleanupTimeout(value = 20L, unit = TimeUnit.SECONDS)
 class HelloServiceImplTest {
 
-  private ManagedChannel channel;
+  private HelloServiceGrpc.HelloServiceBlockingStub service;
 
   @BeforeEach
   void setUp(ServerCleanupRegistry serverRegistry, ManagedChannelCleanupRegistry channelRegistry) throws IOException {
@@ -36,26 +40,42 @@ class HelloServiceImplTest {
 
     int serverPort = server.getPort();
 
-    channel = channelRegistry.register(ManagedChannelBuilder.forAddress("localhost", serverPort)
+    ManagedChannel channel = channelRegistry.register(ManagedChannelBuilder.forAddress("localhost", serverPort)
             .usePlaintext()
             .build());
+
+    service = HelloServiceGrpc.newBlockingStub(channel);
   }
 
   @Test
-  void serverIsStarted() {
-    HelloServiceGrpc.HelloServiceBlockingStub stub
-            = HelloServiceGrpc.newBlockingStub(channel);
-
+  void standardGreeting() {
     Person person = Person.newBuilder()
             .setFirstName("Mark")
             .setLastName("Michaelis")
             .setGender(Person.Gender.MALE)
+            .setBirthday(Timestamp.newBuilder().setSeconds(LocalDate.of(1970, 1, 1).toEpochSecond(LocalTime.NOON, ZoneOffset.UTC)))
             .build();
 
-    HelloResponse helloResponse = stub.hello(HelloRequest.newBuilder()
+    HelloResponse helloResponse = service.hello(HelloRequest.newBuilder()
             .setPerson(person)
             .build());
 
-    assertEquals("Hello, Mr. Mark Michaelis", helloResponse.getGreeting());
+    assertEquals("Hello, Mr. Mark Michaelis!", helloResponse.getGreeting());
+  }
+
+  @Test
+  void birthdayGreeting() {
+    Person person = Person.newBuilder()
+            .setFirstName("Mark")
+            .setLastName("Michaelis")
+            .setGender(Person.Gender.MALE)
+            .setBirthday(Timestamp.newBuilder().setSeconds(LocalDate.now().toEpochSecond(LocalTime.NOON, ZoneOffset.UTC)))
+            .build();
+
+    HelloResponse helloResponse = service.hello(HelloRequest.newBuilder()
+            .setPerson(person)
+            .build());
+
+    assertEquals("Happy Birthday, Mr. Mark Michaelis!", helloResponse.getGreeting());
   }
 }
